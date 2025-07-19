@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Mesin cuci"
+        android:textSize="24sp" />
+
+
+    <EditText
+        android:id="@+id/teksdarisana"
+        android:layout_width="fill_parent"
+        android:layout_height="306dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine" />
+
+    <EditText
+        android:id="@+id/tekskirimkesana"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:inputType="number"
+        android:ems="10"
+        android:text=""
+        android:textSize="24sp" />
+
+
+
+        <Button
+            android:id="@+id/up_off"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.1"
+            android:text="Send" />
+
+
+<LinearLayout
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal" />
+    <Button
+        android:id="@+id/readBT"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="READ BLUETOOTH" />
+
+    <Button
+        android:id="@+id/disconnect"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="DISCONNECT BLUETOOTH" />
+</LinearLayout>
+
