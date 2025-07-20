@@ -272,12 +272,12 @@ public class MainControl extends AppCompatActivity {
                                     System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.length);
                                     final String data = new String(encodedBytes, "US-ASCII");
                                     readBufferPosition = 0;
-
+                                    String ayeuna = myLabel.getText().toString();
                                     handler.post(new Runnable()
                                     {
                                         public void run()
                                         {
-                                            myLabel.setText(data);
+                                            myLabel.setText(ayeuna+"\n"+data);
                                         }
                                     });
                                 }
