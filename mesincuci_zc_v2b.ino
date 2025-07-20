@@ -49,7 +49,7 @@ void loop() {
   digitalWrite(DRAIN, HIGH);
 
   //TELL USER WE WANT TO START
-  for (int i = 0; i <= 10; i++) {
+  for (int i = 0; i <= 30; i++) {
   data=Serial.read();
   Serial.println("pilih!1sd2");
   Serial.println("1. Delicate");
@@ -57,11 +57,18 @@ void loop() {
   Serial.println("3. Heavy");
 
   if(data=='1'){//gentle
-    Serial.println("under construcition");
+    Serial.println("under construction");
+	i=0;
   }
   if(data=='2'){
     Serial.println("quick mode selected");
     Serial.println("agitate 25x");
+    nyuci=25;
+	i=0;
+  }
+  if(data=='3'){
+	  Serial.println("under construction");
+	  i=0;
   }
     digitalWrite(LED_BUILTIN, HIGH);
     delay(500);
@@ -180,7 +187,7 @@ Serial.print("\n");
     }
     dimmer.setPower(10);
     dimmer.setState(OFF);
-    delay(5000);//16.1 detik untuk satu arah
+    delay(lamaistirahatantararah);//16.1 detik untuk satu arah
 
     //ganti arah
     digitalWrite(WASH_MOTOR_DIRECTION,CCW);
@@ -201,9 +208,9 @@ Serial.print("\n");
     }
     dimmer.setPower(10);
     dimmer.setState(OFF);
-    delay(5000);//16.1
+    delay(lamaistirahatantararah);//16.1
     //siklus end
-    Serial.print("nyuco cycle ");
+    Serial.print("nyuci cycle ");
     Serial.print(i);
     Serial.print("\n");
     //add istirahat 
@@ -226,6 +233,7 @@ Serial.print("\n");
   ke++;
 
   //SUCIKAN
+  Serial.println("suci kan");
   digitalWrite(INLET, LOW);
   delay(30000);
   //putar sedikit
@@ -282,9 +290,17 @@ Serial.print("\n");
         delay(10);
         if(tenaga>51) tenaga=51;
         if(tenaga<25) tenaga=25;
-        dimmer.setPower(tenaga); // name.setPower(0%-100%)     
+        dimmer.setPower(tenaga); // name.setPower(0%-100%) 
+		//as the load getting lighter, means less water left
+		//we can stop the spin by measure tenaga at some point
+		if(spinx==9){
+			Serial.print("loop spin ke ");Serial.print(genjot);
+			Serial.print("tenaga nya ");Serial.println(tenaga);
+			jml=jml+tenaga;
+		}
     }
   }
+  Serial.print("rata rata tenaga selama spin ");Serial.println(jml/1001);
    
   if(ke==1) lamaspin=30000;;
   if(ke==2) lamaspin=30000;;
