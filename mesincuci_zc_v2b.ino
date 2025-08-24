@@ -8,6 +8,7 @@
 #define DRAIN 9
 #define CW 1
 #define CCW 0
+#define WASH_MODE 8
 dimmerLamp dimmer(outputPin); 
 int ke=0;
 char data = 0;
@@ -23,11 +24,11 @@ unsigned int  jml=0;
 int jmlrata=0;
 int isi=6;
 int aduk=5;
-int nyuci=55;//i change from 70 to 50 on 20250710
+int nyuci=70;//i change from 70 to 50 on 20250710
 unsigned int lamaistirahat=60000;
 unsigned int lamaistirahatantararah=5000;
 int keepatancuci=47;
-int lamaspin=32000;//30 menit
+int lamaspin=16000;//15m//32000;//30 menit/ because the motor bearing not good, and make noise, i prefer to shorten spin time
 
 // the setup function runs once when you press reset or power the board
 void setup() {
@@ -36,6 +37,7 @@ void setup() {
   pinMode(WASH_MOTOR_DIRECTION, OUTPUT);
   pinMode(INLET, OUTPUT);
   pinMode(DRAIN, OUTPUT);
+  pinMode(WASH_MODE, INPUT_PULLUP);
   dimmer.begin(NORMAL_MODE,OFF);  
   Serial.begin(9600);
 }
@@ -50,26 +52,15 @@ void loop() {
 
   //TELL USER WE WANT TO START
   for (int i = 0; i <= 30; i++) {
-  data=Serial.read();
-  Serial.println("pilih!1sd2");
-  Serial.println("1. Delicate");
-  Serial.println("2. Quick");
-  Serial.println("3. Heavy");
+    //data=Serial.read();
+    data=digitalRead(WASH_MODE);
 
-  if(data=='1'){//gentle
-    Serial.println("under construction");
-	i=0;
-  }
-  if(data=='2'){
+    if(data==LOW){
     Serial.println("quick mode selected");
     Serial.println("agitate 25x");
-    nyuci=25;
-	i=0;
-  }
-  if(data=='3'){
-	  Serial.println("under construction");
-	  i=0;
-  }
+    nyuci=30;
+      i=0;
+    }
     digitalWrite(LED_BUILTIN, HIGH);
     delay(500);
     digitalWrite(LED_BUILTIN, LOW);
@@ -113,7 +104,7 @@ for(int lup1=0; lup1<=29; lup1++){
   myInts[lup1]=tenaga;
   tenaga=25;
   Serial.print("\n");
-  delay(1500);
+  delay(3500);
 }  
 Serial.print("sense selesai\n");
 for(int a=0;a<=29;a++){
@@ -291,19 +282,19 @@ Serial.print("\n");
         if(tenaga>51) tenaga=51;
         if(tenaga<25) tenaga=25;
         dimmer.setPower(tenaga); // name.setPower(0%-100%) 
-		//as the load getting lighter, means less water left
-		//we can stop the spin by measure tenaga at some point
-		if(spinx==9){
-			Serial.print("loop spin ke ");Serial.print(genjot);
-			Serial.print("tenaga nya ");Serial.println(tenaga);
-			jml=jml+tenaga;
-		}
+    //as the load getting lighter, means less water left
+    //we can stop the spin by measure tenaga at some point
+    if(spinx==9){
+      Serial.print("loop spin ke ");Serial.print(genjot);
+      Serial.print("tenaga nya ");Serial.println(tenaga);
+      jml=jml+tenaga;
+    }
     }
   }
   Serial.print("rata rata tenaga selama spin ");Serial.println(jml/1001);
    
-  if(ke==1) lamaspin=30000;;
-  if(ke==2) lamaspin=30000;;
+  if(ke==1) lamaspin=10000;//30000;; same as above lamaspin
+  if(ke==2) lamaspin=10000;//30000;;
   for(int genjot = 0; genjot <= lamaspin; genjot++) {
     kecepatan = analogRead(analogPin);
     if(kecepatan < spinstep[9]) tenaga++;
