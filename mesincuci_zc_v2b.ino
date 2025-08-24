@@ -78,10 +78,11 @@ void loop() {
   Serial.print(ke);
   Serial.print("\n");
 if(ke==0){
-for(int lup1=0; lup1<=29; lup1++){
+for(int lup1=0; lup1<=9; lup1++){
   dimmer.setPower(tenaga); // name.setPower(0%-100%)
   delay(25);
   dimmer.setState(ON);
+  kecepatan=0;
   for(int lup = 0; lup <= 1000; lup++) {
         kecepatan = analogRead(analogPin);
         if(kecepatan < kecepatansense) tenaga++;
@@ -107,14 +108,14 @@ for(int lup1=0; lup1<=29; lup1++){
   delay(3500);
 }  
 Serial.print("sense selesai\n");
-for(int a=0;a<=29;a++){
+for(int a=0;a<=9;a++){
   Serial.print("a ke ");
   Serial.print(a);
   Serial.print(myInts[a]);
   Serial.print("\n");
   jml=jml+myInts[a];
 }
-jmlrata=jml/30;
+jmlrata=jml/10;
 }//end sense  heavy clothes load
 Serial.print("jml rata2 ");
 Serial.print(jmlrata);
