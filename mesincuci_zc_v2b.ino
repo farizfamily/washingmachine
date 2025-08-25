@@ -59,7 +59,6 @@ void loop() {
     Serial.println("quick mode selected");
     Serial.println("agitate 25x");
     nyuci=30;
-      i=0;
     }
     digitalWrite(LED_BUILTIN, HIGH);
     delay(500);
